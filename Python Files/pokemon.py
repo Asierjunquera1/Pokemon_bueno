@@ -32,12 +32,11 @@ this Python class.
 
 
 # Source packages.
-
-
+from weapon_type import WeaponType
 
 class Pokemon():
     lista_IDs=[]
-    def __init__(self, ID, nombre, tipo_arma, salud, ataque, defensa):
+    def __init__(self, ID, pokemon_name, weapon_type, health_points, attack_rating, defense_rating):
         
         if ID not in Pokemon.lista_IDs:
             pass
@@ -48,99 +47,99 @@ class Pokemon():
         else:
             raise TypeError("El ID debe ser un entero")
 
-        if isinstance(nombre, str)==True:
+        if isinstance(pokemon_name, str)==True:
             pass
         else:
             raise TypeError("El nombre debe ser una cadena de texto")
         
-        if isinstance(tipo_arma, Tipo_arma)==True:
+        if isinstance(weapon_type, WeaponType)==True:
             pass
         else:
-            raise TypeError("El el tipo de arma debe ser uno de estos 4: punch, kick, elbow o headbutt")
+            raise TypeError("El el tipo de arma debe ser uno de estos 4: PUNCH, KICK, ELBOW o HEADBUTT")
 
-        if isinstance(salud, int)==True and salud>=1 and salud <=100:
+        if isinstance(health_points, int)==True and health_points>=1 and health_points <=100:
             pass
         else:
             raise TypeError("La salud debe ser un entero del 1 al 100")
         
-        if isinstance(ataque, int)==True and ataque>=1 and ataque <=10:
+        if isinstance(attack_rating, int)==True and attack_rating>=1 and attack_rating <=10:
             pass
         else:
             raise TypeError("La ataque debe ser un entero entre el 1 y el 10")
 
-        if isinstance(defensa, int)==True and defensa>=1 and defensa <=10:
+        if isinstance(defense_rating, int)==True and defense_rating>=1 and defense_rating <=10:
             pass
         else:
             raise TypeError("La defensa debe ser un entero entre el 1 y el 10")
 
 
         self.ID=ID
-        self.nombre=nombre
-        self.tipo_arma=tipo_arma
-        self.salud=salud
-        self.ataque=ataque
-        self.defensa=defensa
+        self.pokemon_name=pokemon_name
+        self.weapon_type=weapon_type
+        self.health_points=health_points
+        self.attack_rating=attack_rating
+        self.defense_rating=defense_rating
     
     def __del__(self):
         Pokemon.lista_IDs.remove(self.ID)
 
 
-    def imprimir(self):
-        print("Pokemon ID", self.ID, "con nombre", self.nombre, "tiene como arma", self.tipo_arma, "y salud", self.salud)
+    def str(self):
+        print("Pokemon ID", self.ID, "with name", self.pokemon_name, "has as weapon", self.weapon_type, "and health", self.health_points)
 
     
-    def get_nombre(self):
-        return self.nombre
+    def get_pokemon_name(self):
+        return self.pokemon_name
 
-    def get_tipo_arma(self):
-        return self.tipo_arma
+    def get_weapon_type(self):
+        return self.weapon_type
 
-    def get_salud(self):
-        return self.salud
+    def get_health_points(self):
+        return self.health_points
 
     def get_ID(self):
         return self.ID
     
-    def get_ataque(self):
-        return self.ataque
+    def get_attack_rating(self):
+        return self.attack_rating
     
-    def get_defensa(self):
-        return self.defensa
+    def get_defense_rating(self):
+        return self.defense_rating
 
     
     def set_ID(self, ID):
         self.ID=ID
 
-    def set_nombre(self, nombre):
-        self.nombre=nombre
+    def set_pokemon_name(self, pokemon_name):
+        self.pokemon_name=pokemon_name
     
-    def set_tipo_arma(self, tipo_arma):
-        self.tipo_arma=tipo_arma
+    def set_weapon_type(self, weapon_type):
+        self.weapon_type=weapon_type
     
-    def set_salud(self, salud):
-        self.salud=salud
+    def set_health_points(self, health_points):
+        self.health_points=health_points
     
-    def set_ataque(self, ataque):
-        self.ataque=ataque
+    def set_attack(self, attack_rating):
+        self.attack_rating=attack_rating
 
-    def set_defensa(self, defensa):
-        self.defensa=defensa
+    def set_defense(self, defense_rating):
+        self.defense_rating=defense_rating
 
    
     def is_alive(self):
-        return self.salud>0
+        return self.health_points>0
     
     
     def fight_defense(self, puntos_daño):
-        if puntos_daño <= self.defensa:
+        if puntos_daño <= self.defense_rating:
             return False
         else:
-            daño_recibido=puntos_daño-self.defensa
-            self.salud-=daño_recibido
+            daño_recibido=puntos_daño - self.defense_rating
+            self.health_points-=daño_recibido
             return True
 
-    def fight_atack(self, pokemon_a_atacar):
-        pokemon_a_atacar.fight_defense(self.ataque)
+    def fight_attack(self, pokemon_a_atacar):
+        pokemon_a_atacar.fight_defense(self.attack_rating)
 
     
 
@@ -301,4 +300,4 @@ if __name__ == "__main__":
     main()
 
 
-# EOF
+# EOF"""
