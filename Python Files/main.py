@@ -31,7 +31,13 @@ This Python method contains the application of the Game.
 
 
 # Source packages.
-
+from pokemon import Pokemon
+from weapon_type import WeaponType
+from pokemon_air import PokemonAir
+from pokemon_earth import PokemonEarth
+from pokemon_electricity import PokemonElectricity
+from pokemon_water import PokemonWater
+import random
 
 
 def get_data_from_user(name_file):
@@ -68,6 +74,32 @@ def get_data_from_user(name_file):
 
 
 def get_pokemon_in_a_list_of_pokemons(coach_to_ask, list_of_pokemons):
+    print( coach_to_ask ,"Estos son tus pokemons, elige uno:")
+    print(list_of_pokemons)
+    eleccion=int(input("Pulse 1 si elige a su pokemon nº 1, 2 si elige su pokemon nº 2 y 3 si elige su pokemon nº3:"))
+    while eleccion!=1 and eleccion!=2 and eleccion!=3:
+        eleccion= int(input("Debes elegir un numero del 1 al 3. Pulse 1 si elige a su pokemon nº 1, 2 si elige su pokemon nº 2 y 3 si elige su pokemon nº3:"))
+    pokemon_eleccion=list_of_pokemons[eleccion]
+    tipo=input("¿De que tipo es tu pokemon: tierra, aire, electricidad agua o normal (si no es de ninguno de estos tipos teclea normal)?")
+    while tipo!="tierra" and tipo!="aire" and tipo!="electricidad" and tipo!="agua" and tipo!="normal":
+        print("Tu eleccion no está dentro de las posibles. Quizá no lo hayas escrito igual de como viene en las opciones(sin mayusculas, tildes, ni ningun signo)")
+        tipo=input("¿De que tipo es tu pokemon: tierra, aire, electricidad agua o normal (si no es de ninguno de estos tipos teclea normal)?")
+    if tipo=="tierra":
+        pokemon_elegido=PokemonEarth(pokemon_eleccion[1], pokemon_eleccion[2], pokemon_eleccion[3], pokemon_eleccion[4], pokemon_eleccion[5], pokemon_eleccion[6])
+    elif tipo=="aire":
+        pokemon_elegido=PokemonAir(pokemon_eleccion[1], pokemon_eleccion[2], pokemon_eleccion[3], pokemon_eleccion[4], pokemon_eleccion[5], pokemon_eleccion[6])
+    elif tipo=="electricidad":
+        pokemon_elegido=PokemonElectricity(pokemon_eleccion[1], pokemon_eleccion[2], pokemon_eleccion[3], pokemon_eleccion[4], pokemon_eleccion[5], pokemon_eleccion[6])
+    elif tipo=="agua":
+        pokemon_elegido=PokemonWater(pokemon_eleccion[1], pokemon_eleccion[2], pokemon_eleccion[3], pokemon_eleccion[4], pokemon_eleccion[5], pokemon_eleccion[6])
+    elif tipo=="normal":
+        pokemon_elegido=Pokemon(pokemon_eleccion[1], pokemon_eleccion[2], pokemon_eleccion[3], pokemon_eleccion[4], pokemon_eleccion[5], pokemon_eleccion[6])
+    return pokemon_elegido
+    
+
+
+    
+    
     
     """Function to know the list of Pokemons that are associated to the Coach.
 
@@ -97,6 +129,10 @@ def get_pokemon_in_a_list_of_pokemons(coach_to_ask, list_of_pokemons):
 
 
 def coach_is_undefeated(list_of_pokemons):
+    if list_of_pokemons[1][4]<=0 and  list_of_pokemons[2][4]<=0 and list_of_pokemons[3][4]<=0:
+        return False
+    else: 
+        return True
     """Function to know if the Coach is still undefeated.
 
     This function is used in order to know if the Coach is still undefeated.
@@ -148,9 +184,10 @@ def main():
 
     # Get configuration for Game User 1.
 
+    get_data_from_user(coach_1_pokemons.csv)
 
     # Get configuration for Game User 2.
-
+    get_data_from_user(coach_2_pokemons.csv)
 
     print("------------------------------------------------------------------")
     print("The Game starts...")
