@@ -32,10 +32,20 @@ this Python class.
 
 
 # Source packages.
+from weapon_type import WeaponType
+from pokemon import Pokemon
 
-
-
-class PokemonWater():
+class PokemonWater(Pokemon):
+    
+    def __init__(self, ID, pokemon_name, weapon_type, health_points, attack_rating, defense_rating):
+        super().__init__(ID, pokemon_name, weapon_type, health_points, None, defense_rating)
+        
+        if isinstance(attack_rating, int)==True and attack_rating>=11 and attack_rating <=20:
+            pass
+        else:
+            raise TypeError("El ataque debe ser un entero entre el 11 y el 20")
+        
+        self.attack_rating=attack_rating
     """Python class to implement a basic version of a Pokemon of the game.
 
     This Python class implements the basic version of a Pokemon of the game.

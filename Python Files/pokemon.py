@@ -39,7 +39,7 @@ class Pokemon():
     def __init__(self, ID, pokemon_name, weapon_type, health_points, attack_rating, defense_rating):
         
         if ID not in Pokemon.lista_IDs:
-            pass
+            Pokemon.lista_IDs.append(ID)
         else:
             raise ValueError("Este ID pertenece a otro pokemon")
         if isinstance(ID, int)==True:
@@ -62,12 +62,12 @@ class Pokemon():
         else:
             raise TypeError("La salud debe ser un entero del 1 al 100")
         
-        if isinstance(attack_rating, int)==True and attack_rating>=1 and attack_rating <=10:
+        if isinstance(attack_rating, int)==True and attack_rating>=1 and attack_rating <=10 or attack_rating==None:
             pass
         else:
             raise TypeError("La ataque debe ser un entero entre el 1 y el 10")
 
-        if isinstance(defense_rating, int)==True and defense_rating>=1 and defense_rating <=10:
+        if isinstance(defense_rating, int)==True and defense_rating>=1 and defense_rating <=10 or defense_rating==None:
             pass
         else:
             raise TypeError("La defensa debe ser un entero entre el 1 y el 10")
@@ -84,8 +84,8 @@ class Pokemon():
         Pokemon.lista_IDs.remove(self.ID)
 
 
-    def str(self):
-        print("Pokemon ID", self.ID, "with name", self.pokemon_name, "has as weapon", self.weapon_type, "and health", self.health_points)
+    def __str__(self):
+        return f'Pokemon ID {self.ID} with name {self.pokemon_name} has as weapon {self.weapon_type.name} and health {self.health_points}'
 
     
     def get_pokemon_name(self):
@@ -130,16 +130,16 @@ class Pokemon():
         return self.health_points>0
     
     
-    def fight_defense(self, puntos_daño):
-        if puntos_daño <= self.defense_rating:
+    def fight_defense(self, points_of_damage):
+        if points_of_damage <= self.defense_rating:
             return False
         else:
-            daño_recibido=puntos_daño - self.defense_rating
+            daño_recibido=points_of_damage - self.defense_rating
             self.health_points-=daño_recibido
             return True
 
-    def fight_attack(self, pokemon_a_atacar):
-        pokemon_a_atacar.fight_defense(self.attack_rating)
+    def fight_attack(self, pokemon_to_attack):
+        return pokemon_to_attack.fight_defense(self.attack_rating)
 
     
 
@@ -238,12 +238,10 @@ def main():
     print("Test Case 2: Human-readable format of the object.")
     print("=================================================================.")
     pokemon_2 = Pokemon(2, "Charmander", WeaponType.HEADBUTT, 100, 7, 10)
-
     if str(pokemon_2) == "Pokemon ID 2 with name Charmander has as weapon HEADBUTT and health 100":
         print("Test PASS. The human-readable format of the object has been implemented correctly.")
     else:
         print("Test FAIL. Check the method __str__()." + " RESULT: " + str(pokemon_2))
-
 
     print("=================================================================.")
     print("Test Case 3: Pokemon alive?¿?.")
