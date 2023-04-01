@@ -32,10 +32,22 @@ this Python class.
 
 
 # Source packages.
+from pokemon import Pokemon
+from weapon_type import WeaponType
+import random
 
-
-
-class PokemonAir():
+class PokemonAir(Pokemon):
+    def __init__(self, ID, pokemon_name, weapon_type, health_points, attack_rating, defense_rating):
+        super().__init__(ID, pokemon_name, weapon_type, health_points, attack_rating, defense_rating)
+    
+    def fight_defense(self, puntos_daño):
+        afecta=random.randint(0,1)
+        if afecta==0:
+            return False
+        elif afecta==1:
+            return super().fight_defense(puntos_daño)
+    
+    
     """Python class to implement a basic version of a Pokemon of the game.
 
     This Python class implements the basic version of a Pokemon of the game.

@@ -32,10 +32,21 @@ this Python class.
 
 
 # Source packages.
+from weapon_type import WeaponType
+from pokemon import Pokemon
 
-
-
-class PokemonEarth():
+class PokemonEarth(Pokemon):
+    def __init__(self, ID, pokemon_name, weapon_type, health_points, attack_rating, defense_rating):
+        super().__init__(ID, pokemon_name, weapon_type, health_points, attack_rating, None)
+        
+        if isinstance(defense_rating, int)==True and defense_rating>=11 and defense_rating <=20:
+            pass
+        else:
+            raise TypeError("La defensa debe ser un entero entre el 11 y el 20")
+        
+        self.defense_rating=defense_rating
+   
+   
     """Python class to implement a basic version of a Pokemon of the game.
 
     This Python class implements the basic version of a Pokemon of the game.
