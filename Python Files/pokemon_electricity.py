@@ -44,8 +44,9 @@ class PokemonElectricity(Pokemon):
         ataque_doble=random.randint(0,1)
         if ataque_doble==0:
             self.attack_rating=2*self.attack_rating
-            return super().fight_attack(pokemon_to_attack)
+            resultado=super().fight_attack(pokemon_to_attack)
             self.attack_rating=self.attack_rating/2
+            return resultado
         elif ataque_doble==1:
             return super().fight_attack(pokemon_to_attack)
    
