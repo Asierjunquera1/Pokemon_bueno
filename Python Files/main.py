@@ -35,6 +35,14 @@ This Python method contains the application of the Game.
 
 
 def get_data_from_user(name_file):
+    lista=[]
+    with open(name_file, "r") as archivo:
+        for linea in archivo:
+            linea=linea.rstrip()
+            lista1=linea.split(",")
+            lista.append(lista1)
+    return lista
+    
     """Function to obtain data from each user.
 
     This function obtains data from each user in order to set the configuration
@@ -60,6 +68,7 @@ def get_data_from_user(name_file):
 
 
 def get_pokemon_in_a_list_of_pokemons(coach_to_ask, list_of_pokemons):
+    
     """Function to know the list of Pokemons that are associated to the Coach.
 
     This function is used in order to know the list of Pokemos that are
