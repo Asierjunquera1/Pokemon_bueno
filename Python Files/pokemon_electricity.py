@@ -32,10 +32,23 @@ this Python class.
 
 
 # Source packages.
+import random
+from pokemon import Pokemon
+from weapon_type import WeaponType
 
+class PokemonElectricity(Pokemon):
+    def __init__(self, ID, pokemon_name, weapon_type, health_points, attack_rating, defense_rating):
+        super().__init__(ID, pokemon_name, weapon_type, health_points, attack_rating, defense_rating)
 
-
-class PokemonElectricity():
+    def fight_attack(self, pokemon_to_attack):
+        ataque_doble=random.randint(0,1)
+        if ataque_doble==0:
+            self.attack_rating=2*self.attack_rating
+            return super().fight_attack(pokemon_to_attack)
+            self.attack_rating=self.attack_rating/2
+        elif ataque_doble==1:
+            return super().fight_attack(pokemon_to_attack)
+   
     """Python class to implement a basic version of a Pokemon of the game.
 
     This Python class implements the basic version of a Pokemon of the game.
