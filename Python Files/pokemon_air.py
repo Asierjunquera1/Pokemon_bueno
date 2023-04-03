@@ -40,12 +40,12 @@ class PokemonAir(Pokemon):
     def __init__(self, ID, pokemon_name, weapon_type, health_points, attack_rating, defense_rating):
         super().__init__(ID, pokemon_name, weapon_type, health_points, attack_rating, defense_rating)
     
-    def fight_defense(self, puntos_daño):
+    def fight_defense(self, points_of_damage):
         afecta=random.randint(0,1)
         if afecta==0:
             return False
         elif afecta==1:
-            return super().fight_defense(puntos_daño)
+            return super().fight_defense(points_of_damage)
     
     
     """Python class to implement a basic version of a Pokemon of the game.

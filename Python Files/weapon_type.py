@@ -40,6 +40,10 @@ class WeaponType(Enum):
     KICK=4
     ELBOW=6
     HEADBUTT=10
+    punch=2
+    kick=4
+    elbow=6
+    headbutt=10
     
     """Python class to implement an enumeration for the attribute Weapon Type.
 

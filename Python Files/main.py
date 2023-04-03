@@ -32,6 +32,7 @@ This Python method contains the application of the Game.
 
 # Source packages.
 from pokemon import Pokemon
+from pokemon import Pokemon
 from weapon_type import WeaponType
 from pokemon_air import PokemonAir
 from pokemon_earth import PokemonEarth
@@ -48,7 +49,7 @@ def get_data_from_user(name_file):
             lista1=linea.split(",")
             lista.append(lista1)
     return lista
-    
+   
     """Function to obtain data from each user.
 
     This function obtains data from each user in order to set the configuration
@@ -74,28 +75,22 @@ def get_data_from_user(name_file):
 
 
 def get_pokemon_in_a_list_of_pokemons(coach_to_ask, list_of_pokemons):
-    print( coach_to_ask ,"Estos son tus pokemons, elige uno:")
-    print(list_of_pokemons)
-    eleccion=int(input("Pulse 1 si elige a su pokemon nº 1, 2 si elige su pokemon nº 2 y 3 si elige su pokemon nº3:"))
-    while eleccion!=1 and eleccion!=2 and eleccion!=3:
-        eleccion= int(input("Debes elegir un numero del 1 al 3. Pulse 1 si elige a su pokemon nº 1, 2 si elige su pokemon nº 2 y 3 si elige su pokemon nº3:"))
-    pokemon_eleccion=list_of_pokemons[eleccion]
-    tipo=input("¿De que tipo es tu pokemon: tierra, aire, electricidad agua o normal (si no es de ninguno de estos tipos teclea normal)?")
-    while tipo!="tierra" and tipo!="aire" and tipo!="electricidad" and tipo!="agua" and tipo!="normal":
-        print("Tu eleccion no está dentro de las posibles. Quizá no lo hayas escrito igual de como viene en las opciones(sin mayusculas, tildes, ni ningun signo)")
-        tipo=input("¿De que tipo es tu pokemon: tierra, aire, electricidad agua o normal (si no es de ninguno de estos tipos teclea normal)?")
-    if tipo=="tierra":
-        pokemon_elegido=PokemonEarth(pokemon_eleccion[1], pokemon_eleccion[2], pokemon_eleccion[3], pokemon_eleccion[4], pokemon_eleccion[5], pokemon_eleccion[6])
-    elif tipo=="aire":
-        pokemon_elegido=PokemonAir(pokemon_eleccion[1], pokemon_eleccion[2], pokemon_eleccion[3], pokemon_eleccion[4], pokemon_eleccion[5], pokemon_eleccion[6])
-    elif tipo=="electricidad":
-        pokemon_elegido=PokemonElectricity(pokemon_eleccion[1], pokemon_eleccion[2], pokemon_eleccion[3], pokemon_eleccion[4], pokemon_eleccion[5], pokemon_eleccion[6])
-    elif tipo=="agua":
-        pokemon_elegido=PokemonWater(pokemon_eleccion[1], pokemon_eleccion[2], pokemon_eleccion[3], pokemon_eleccion[4], pokemon_eleccion[5], pokemon_eleccion[6])
-    elif tipo=="normal":
-        pokemon_elegido=Pokemon(pokemon_eleccion[1], pokemon_eleccion[2], pokemon_eleccion[3], pokemon_eleccion[4], pokemon_eleccion[5], pokemon_eleccion[6])
-    return pokemon_elegido
-    
+    print("Entrenador",coach_to_ask, ", estos son tus pokemons:")
+    for i in range(len(list_of_pokemons)):
+        print(list_of_pokemons[i][1])
+    pokemon_elegido=input("Escoge un pokemon: ")
+    existe=False
+    while existe==False:
+        for i in range(len(list_of_pokemons)):
+            if pokemon_elegido.lower()==list_of_pokemons[i][1].lower():
+                existe=True
+                eleccion=list_of_pokemons[i]
+        if existe==True:
+            pass
+        else:
+            print("No has elegido un pokemon dentro de tus opciones: Quizá hayas escrito mal el nombre.")
+            pokemon_elegido=input("Escoge un pokemon: ")
+    return eleccion
 
 
     
@@ -126,13 +121,14 @@ def get_pokemon_in_a_list_of_pokemons(coach_to_ask, list_of_pokemons):
        >>> get_pokemon_in_a_list_of_pokemons(1, list_of_pokemons)
     """
 
-
+    
 
 def coach_is_undefeated(list_of_pokemons):
-    if list_of_pokemons[1][4]<=0 and  list_of_pokemons[2][4]<=0 and list_of_pokemons[3][4]<=0:
-        return False
-    else: 
+    
+    if len(list_of_pokemons)>=1:
         return True
+    else:
+        return False
     """Function to know if the Coach is still undefeated.
 
     This function is used in order to know if the Coach is still undefeated.
@@ -183,38 +179,98 @@ def main():
     print("Let's start to set the configuration of each game user. \n")
 
     # Get configuration for Game User 1.
-
-    get_data_from_user(coach_1_pokemons.csv)
+    archivo1="Python Files\coach_1_pokemons.csv"
+    lista_entrenador1=get_data_from_user(archivo1)
 
     # Get configuration for Game User 2.
-    get_data_from_user(coach_2_pokemons.csv)
+    archivo2="Python Files\coach_2_pokemons.csv"
+    lista_entrenador2=get_data_from_user(archivo2)
 
     print("------------------------------------------------------------------")
     print("The Game starts...")
     print("------------------------------------------------------------------")
 
     # Get a copy of the list of pokemons:
-
-
-    # Choose first pokemons
  
-
+    # Choose first pokemons
+    pokemon1=get_pokemon_in_a_list_of_pokemons(1, lista_entrenador1)
+    pokemon_elegido_entrenador1=Pokemon(int(pokemon1[0]), pokemon1[1], pokemon1[2], int(pokemon1[3]), int(pokemon1[4]), int(pokemon1[5]))
+    pokemon2=get_pokemon_in_a_list_of_pokemons(2, lista_entrenador2)
+    pokemon_elegido_entrenador2=Pokemon(int(pokemon2[0]), pokemon2[1], pokemon2[2], int(pokemon2[3]), int(pokemon2[4]), int(pokemon2[5]))
     # Main loop.
+    while coach_is_undefeated(lista_entrenador1)==True and coach_is_undefeated(lista_entrenador2)==True:
+        while pokemon_elegido_entrenador1.health_points>0 and pokemon_elegido_entrenador2.health_points>0:
+            pokemon_elegido_entrenador1.fight_attack(pokemon_elegido_entrenador2)
+            pokemon_elegido_entrenador2.fight_attack(pokemon_elegido_entrenador1)
+        if pokemon_elegido_entrenador1.health_points>0 and pokemon_elegido_entrenador2.health_points<=0:
+            print("              ")
+            print("Entrenador 2, tu", pokemon_elegido_entrenador2.pokemon_name, "ha muerto")
+            print("              ")
+            for i in range(len(lista_entrenador1)):
+                if pokemon_elegido_entrenador1.pokemon_name==lista_entrenador1[i-1][1]:
+                    lista_entrenador1[i-1][3]=pokemon_elegido_entrenador1.health_points
+            pokemon_elegido_entrenador1.__del__()
+
+            for i in range(len(lista_entrenador2)):
+                if pokemon_elegido_entrenador2.pokemon_name==lista_entrenador2[i-1][1]:
+                    linea=lista_entrenador2[i-1]
+                    lista_entrenador2.remove(linea)
+        elif pokemon_elegido_entrenador2.health_points>0 and pokemon_elegido_entrenador1.health_points<=0:
+            print("              ")
+            print("Entrenador 1, tu", pokemon_elegido_entrenador1.pokemon_name, "ha muerto")
+            print("              ")
+            for i in range(len(lista_entrenador2)):
+                if pokemon_elegido_entrenador2.pokemon_name==lista_entrenador2[i-1][1]:
+                    lista_entrenador2[i-1][3]=pokemon_elegido_entrenador2.health_points
+            pokemon_elegido_entrenador2.__del__()
+
+            for i in range(len(lista_entrenador1)):
+                if pokemon_elegido_entrenador1.pokemon_name==lista_entrenador1[i-1][1]:
+                    linea=lista_entrenador1[i-1]
+                    lista_entrenador1.remove(linea)
+        else:
+            print("              ")
+            print("Entrenadores, ambos pokemons,", pokemon_elegido_entrenador1.pokemon_name ,"y", pokemon_elegido_entrenador2.pokemon_name ,"han muerto")
+            print("              ")
+            for i in range(len(lista_entrenador1)):
+                if pokemon_elegido_entrenador1.pokemon_name==lista_entrenador1[i-1][i]:
+                    linea=lista_entrenador1[i-1]
+                    lista_entrenador1.remove(linea)
+        if coach_is_undefeated(lista_entrenador1)==True and coach_is_undefeated(lista_entrenador2)==True:
+            
+            pokemon1=get_pokemon_in_a_list_of_pokemons(1, lista_entrenador1)
+            pokemon_elegido_entrenador1=Pokemon(int(pokemon1[0]), pokemon1[1], pokemon1[2], int(pokemon1[3]), int(pokemon1[4]), int(pokemon1[5]))
+            pokemon2=get_pokemon_in_a_list_of_pokemons(2, lista_entrenador2)
+            pokemon_elegido_entrenador2=Pokemon(int(pokemon2[0]), pokemon2[1], pokemon2[2], int(pokemon2[3]), int(pokemon2[4]), int(pokemon2[5]))
 
 
 
     print("------------------------------------------------------------------")
     print("The Game has end...")
     print("------------------------------------------------------------------")
-
+    if coach_is_undefeated(lista_entrenador1)==False:
+        print("Entrenador 2, has ganado")
+    elif coach_is_undefeated(lista_entrenador2)==False:
+        print("Entrenador 1, has ganado")
+    else:
+        print("Habeis empatado")
 
     print("------------------------------------------------------------------")
     print("Statistics")
     print("------------------------------------------------------------------")
     print("Game User 1:")
-
+    if coach_is_undefeated(lista_entrenador1)==False:
+        print("Todos tus pokemons han muerto")
+    else:
+        for i in range(len(lista_entrenador1)):
+            print("Tu", lista_entrenador1[i][1], "quedó con la siguiente vida:", lista_entrenador1[i][3])
 
     print("Game User 2:")
+    if coach_is_undefeated(lista_entrenador2)==False:
+        print("Todos tus pokemons han muerto")
+    else:
+        for i in range(len(lista_entrenador2)):
+            print("Tu", lista_entrenador2[i][1], "quedó con la siguiente vida:", lista_entrenador2[i][3])
 
 
 

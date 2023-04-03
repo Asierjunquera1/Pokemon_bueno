@@ -37,7 +37,6 @@ from weapon_type import WeaponType
 class Pokemon():
     lista_IDs=[]
     def __init__(self, ID, pokemon_name, weapon_type, health_points, attack_rating, defense_rating):
-        
         if ID not in Pokemon.lista_IDs:
             Pokemon.lista_IDs.append(ID)
         else:
@@ -52,12 +51,7 @@ class Pokemon():
         else:
             raise TypeError("El nombre debe ser una cadena de texto")
         
-        if isinstance(weapon_type, WeaponType)==True:
-            pass
-        else:
-            raise TypeError("El el tipo de arma debe ser uno de estos 4: PUNCH, KICK, ELBOW o HEADBUTT")
-
-        if isinstance(health_points, int)==True and health_points>=1 and health_points <=100:
+        if isinstance(health_points, int)==True and health_points <=100:
             pass
         else:
             raise TypeError("La salud debe ser un entero del 1 al 100")
@@ -81,7 +75,10 @@ class Pokemon():
         self.defense_rating=defense_rating
     
     def __del__(self):
-        Pokemon.lista_IDs.remove(self.ID)
+        if self.ID in Pokemon.lista_IDs:
+            Pokemon.lista_IDs.remove(self.ID)
+        else: 
+            pass
 
 
     def __str__(self):
